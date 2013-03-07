@@ -77,6 +77,7 @@ class GameState
 			letters_left.each do |guess|
 				return false if win_with? guess == false
 			end
+			return true
 		end
 	end
 end
