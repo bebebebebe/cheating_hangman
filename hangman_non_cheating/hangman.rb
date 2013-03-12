@@ -43,7 +43,7 @@ end
 
 
 class Game
-	attr_accessor :word, :guess
+	attr_accessor :word, :guess, :game_state
 	#attr_writer :game_state
 
 	def word_list(n)
@@ -57,7 +57,7 @@ class Game
 	end
 	
 	def play
-		until @game_state.final_state?
+		until game_state.final_state?
 			display_word
 			get_guess
 			process guess
@@ -67,14 +67,14 @@ class Game
 	end
 
 	def display_word
-		puts @game_state.format_revealed_word
+		puts game_state.format_revealed_word
 	end
 
 	def get_guess
 		loop do
-			puts "You have #{@game_state.turns_left} guesses left. Guess a letter:"; print '> '
+			puts "You have #{game_state.turns_left} guesses left. Guess a letter:"; print '> '
 			@guess = gets.downcase.chomp
-			if @game_state.already_guessed?(guess)
+			if game_state.already_guessed?(guess)
 				puts "You already guessed '#{guess}'!"
 			elsif not(('a'..'z').to_a.include? guess)
 				puts "Just type in one letter (and then <return>)."
@@ -84,18 +84,18 @@ class Game
 	end
 
 	def process(guess)
-		@game_state = @game_state.respond_to_guess(guess, word)
+		@game_state = game_state.respond_to_guess(guess, word)
 	end
 
 	def reply_to_guess
-		if @game_state.correct_guess?(guess, word)
+		if game_state.correct_guess?(guess, word)
 			puts "Good guess!"
 		else puts "Nope! The word doesn't contain #{guess}."
 		end
 	end
 
 	def game_over
-		if @game_state.win?
+		if game_state.win?
 			print 'You win! '
 			else print 'You lose! '
 			end
@@ -103,8 +103,3 @@ class Game
 	end
 
 end
-
-
-
-
-
