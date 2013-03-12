@@ -44,17 +44,23 @@ end
 
 class Game
 	attr_accessor :word, :guess, :game_state
-	#attr_writer :game_state
-
-	def word_list(n)
-			['cat', 'and', 'the', 'bat', 'can', 'bat'] if n == 3
-			['today', 'robot', 'hello', 'camel', 'house', 'about'] if n == 5
-	end
 		
 	def initialize(word_length = 5)
 		@word = word_list(word_length)[rand(word_list(word_length).length)]
 		@game_state = GameState.new(9, [], '_' * word_length )		
 	end
+
+	# def word_list(n)
+	# 		['cat', 'and', 'the', 'bat', 'can', 'bat'] if n == 3
+	# 		['today', 'robot', 'hello', 'camel', 'house', 'about'] if n == 5
+	# end
+
+	def word_list(n)
+		file = "2of4brif.txt" # 
+		#file = "/usr/share/dict/words"
+		dictionary = File.read(file).split
+		dictionary.select { |word| word.length == n }
+	end	
 	
 	def play
 		until game_state.final_state?
