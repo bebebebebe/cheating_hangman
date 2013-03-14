@@ -46,17 +46,28 @@ class Game
 	attr_accessor :word, :guess, :game_state
 		
 	def initialize(word_length = 5)
-		@word = word_list(word_length)[rand(word_list(word_length).length)]
-		@game_state = GameState.new(9, [], '_' * word_length )		
+		@word = dictionary[rand(dictionary.length)]
+		@game_state = GameState.new(9, [], '_' * @word.length )
 	end
 
-	def word_list(n)
-		file = "../FREQ.TXT" # 985 frequent words (once proper names excluded)
-		#file = "../2of4brif.txt" # about 60000 words
-		#file = "/usr/share/dict/words"
-		dictionary = File.read(file).split
-		dictionary.select { |word| word.length == n }
-	end	
+
+#############
+	def dictionary # 839 common words of length at most 7
+		file = "../FREQ.TXT"
+		File.read(file).split.select { |word| word == word.downcase and word.length < 8 }
+	end
+
+# 	def word_list
+#    		dictionary.select { |word| word.length == @word_length }
+#   	end
+# ###########
+
+
+# 	def word_list(n)
+# 		file = "../FREQ.TXT" # 985 frequent words (once proper names excluded)
+# 		dictionary = File.read(file).split
+# 		dictionary.select { |word| word.length == n }
+# 	end	
 	
 	def play
 		until game_state.final_state?

@@ -66,7 +66,8 @@ class Game
 	attr_accessor :guess, :game_state
 		
 	def initialize
-		@word_length = 2 + rand(6)
+		word = dictionary[rand(dictionary.length)]
+		@word_length = word.length
 		@game_state = GameState.new(9, [], '_' * @word_length, word_list)	
 	end
 
