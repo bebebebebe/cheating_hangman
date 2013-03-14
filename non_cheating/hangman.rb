@@ -56,18 +56,6 @@ class Game
 		file = "../FREQ.TXT"
 		File.read(file).split.select { |word| word == word.downcase and word.length < 8 }
 	end
-
-# 	def word_list
-#    		dictionary.select { |word| word.length == @word_length }
-#   	end
-# ###########
-
-
-# 	def word_list(n)
-# 		file = "../FREQ.TXT" # 985 frequent words (once proper names excluded)
-# 		dictionary = File.read(file).split
-# 		dictionary.select { |word| word.length == n }
-# 	end	
 	
 	def play
 		until game_state.final_state?
