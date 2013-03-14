@@ -30,21 +30,13 @@ class GameState
   end
 
   def update(word, partial)
-    partial.each_char.with_index { |x,i| word[i] = partial[i] if x != '_' }
-    word
+    word.chars.zip(partial.chars).map {|c1,c2| c1 == ?_ ? c2 : c1}.join
   end
 
   def biggest_partition_with(guess) # guessed letter placement with most possible words
-    key_value = partition_with(guess).max_by{ |k,v| v.size }
+    key_value = possible_words.group_by {|word| form word, guess}.max_by{ |k,v| v.size }
     @possible_words = key_value[1]
     key_value[0]
-  end
-
-  def partition_with(guess) # partition possible words by position(s) of guessed letter
-    hash = Hash.new { |hash, key| hash[key] = [] }
-    possible_words.each_with_object(hash) do |word, hash|
-      hash[form(word, guess)] << word
-    end
   end
 
   def form(word, letter)

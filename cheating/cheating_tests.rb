@@ -28,11 +28,6 @@ class GameTesting < MiniTest::Unit::TestCase
     assert_equal(state.update('ab__t', '___u_'), 'ab_ut')
   end
 
-  def test_partition_with
-    state = GameState.new(5, [], 'ab__t', ['about', 'aboot', 'abort', 'abrot'])
-    assert_equal(state.partition_with('o'), {'__o__' => ['about', 'abort'], '__oo_' => ['aboot'], '___o_' => ['abrot']})
-  end
-
   def test_form
     state = GameState.new(5, [], 'ab__t', ['about'])
     assert_equal(state.form('abaut', 'a'), 'a_a__')   
