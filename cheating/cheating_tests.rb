@@ -28,11 +28,6 @@ class GameTesting < MiniTest::Unit::TestCase
     assert_equal(state.update('ab__t', '___u_'), 'ab_ut')
   end
 
-  def test_partition_with
-    state = GameState.new(5, [], 'ab__t', ['about', 'aboot', 'abort', 'abrot'])
-    assert_equal(state.partition_with('o'), {'__o__' => ['about', 'abort'], '__oo_' => ['aboot'], '___o_' => ['abrot']})
-  end
-
   def test_form
     state = GameState.new(5, [], 'ab__t', ['about'])
     assert_equal(state.form('abaut', 'a'), 'a_a__')   
@@ -43,14 +38,6 @@ class GameTesting < MiniTest::Unit::TestCase
     assert_equal(state.biggest_partition_with('o'), '__o__')
   end
 
-# what's wrong with this attempted test?
-  # def test_biggest_partition_possible_words
-  #   @possible_words = ['about', 'aboot', 'abort', 'abrot']
-  #   state = GameState.new(5, [], 'ab__t', ['about', 'aboot', 'abort', 'abrot'])
-  #   state.biggest_partition_with('o')
-  #   assert_equal(@possible_words, ['about', 'abort'])
-  # end
-
   def test_respond_to
     state = GameState.new(5, [], 'ab__t', ['about', 'aboot', 'abort', 'abrot'])
     guess = 'o'
@@ -60,6 +47,5 @@ class GameTesting < MiniTest::Unit::TestCase
     assert_equal(state.revealed_word, 'abo_t')
     assert_equal(state.possible_words, ['about', 'abort'])
   end
-
 
 end
